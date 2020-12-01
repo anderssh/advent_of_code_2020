@@ -20,5 +20,5 @@ def task_2(number_list):
                     print(second_number)
                     print(third_number)
                     return first_number*second_number*third_number
-print(task_1(the_input))
+print(task_1(number_list))
 print(task_2(number_list))
