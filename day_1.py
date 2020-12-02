@@ -1,6 +1,7 @@
 from utils import inputfile_to_array
 
-number_list = inputfile_to_array("input_day_1.txt")
+number_list = [int(item) for item in inputfile_to_array("input_day_1.txt")]
+
 
 def task_1(number_list):
     for first_number in number_list:
