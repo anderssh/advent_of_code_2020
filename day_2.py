@@ -1,6 +1,6 @@
 from utils import inputfile_to_array
 
-passwords_and_policy_list = inputfile_to_array("input_day_2.txt")
+passwords_and_policy_list = inputfile_to_array("inputs/input_day_2.txt")
 
 def extract_policy_and_password_from_string(passwords_and_policy_string):
     '''
