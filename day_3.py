@@ -29,8 +29,6 @@ def traverse_slope(map,slope=[3,1]):
                 x = x - width_of_map
             if val[x] == '#':
                 tree_counter = tree_counter + 1
-        else:
-            continue
     return tree_counter
 
 print("The number of tree hits in task a are:", traverse_slope(map) )
