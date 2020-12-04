@@ -15,6 +15,10 @@ codes = [
 ]
 
 def remove_empty_lines_and_concat(passport_list_with_empty_lines):
+    '''
+    Takes in the list as read from the file, puts the lines that belong together in
+    same list element. The codes within the elements are space separated
+    '''
 
     element = ''
     passport_list = []
@@ -23,40 +27,70 @@ def remove_empty_lines_and_concat(passport_list_with_empty_lines):
             passport_list.append(element)
             element = ''
         else:
-            element = element + item
+            if element == '':
+                element = element + item
+            else:
+                element = element + ' ' + item
             if i == len(passport_list_with_empty_lines)-1:
                 passport_list.append(element)
     return passport_list
 
-def passport_element_to_dict(passport_string, codes):
+def passport_element_to_dict(passport_string):
+    '''
+    Takes in a space separated string which is one passport and
+    put them in a dictionary, with key=code and value=valie
+    '''
     string_list = passport_string.split(" ")
     mydict = {}
     for element in string_list:
         code_and_value_list = element.split(":")
-        if code_and_value_list[0] != "cid":
+        if code_and_value_list[0]:
             mydict[code_and_value_list[0]] = code_and_value_list[1]
-    print(mydict)
+    return mydict
 
-def get_number_of_valid_passports(passport_list, codes):
+def get_number_of_passports_with_all_relevant_codes(passport_list, codes):
+    '''
+    Takes in passport list as returned by "remove_empty_lines_and_concat"
+    Returns number of passports with all codes there. Uses
+    the "all_relevant_codes_are_present" function.
+    '''
     number_of_valid = 0
-    for i in passport_list:
-        this_passport_is_valid = True
-        for k in codes:
-            if k not in i and k != "cid":
-                this_passport_is_valid = False
-        if this_passport_is_valid:
+    for passport_string in passport_list:
+        passport_dict = passport_element_to_dict(passport_string)
+        if all_relevant_codes_are_present(passport_dict, codes):
             number_of_valid += 1
     return number_of_valid
+
 def get_number_of_valid_passports(passport_list, codes):
-    return
-def all_relevant_codes_are_present(codes):
+    '''
+    Takes in passport list as returned by "remove_empty_lines_and_concat"
+    Returns number of passports with all relevant codes there and valid
+    '''
+    number_of_valid = 0
+    for passport_string in passport_list:
+        passport_dict = passport_element_to_dict(passport_string)
+        if all_fields_valid(passport_dict, codes):
+            number_of_valid += 1
+    return number_of_valid
+    
+def all_relevant_codes_are_present(passport_dict, codes):
+    '''
+    Takes in on passport dict.
+    Returns True if all relevant codes are in the dictionary, ignores "cid"
+    '''
     for code in codes:
-        if code not in passport_dict:
-    return False
+        if code not in passport_dict and code != "cid":
+            return False
+    return True
 
 
-def validate_fields(passport_dict, codes):
-    if not all_relevant_codes_are_present():
+def all_fields_valid(passport_dict, codes):
+    '''
+    Takes in on passport dict.
+    Returns True if all relevant codes are in the dictionary,
+    and all values are valid
+    '''
+    if not all_relevant_codes_are_present(passport_dict, codes):
         return False
     if not validate_birth_year(passport_dict.get("byr")): return False
     if not validate_issue_year(passport_dict.get("iyr")): return False
@@ -125,20 +159,20 @@ def validate_hair_color(hair_color):
     return False
 
 def validate_passport_id(passport_id):
-    if len(passport_id) == 6 and passport_id.isdigit():
+    if len(passport_id) == 9 and passport_id.isdigit():
         return True
     return False
 
 
 def task_a(passport_list_with_empty_lines, codes):
     passport_list = remove_empty_lines_and_concat(passport_list_with_empty_lines)
-    number_valid_passports = get_number_of_valid_passports(passport_list, codes)
+    number_valid_passports = get_number_of_passports_with_all_relevant_codes(passport_list, codes)
     return number_valid_passports
 
 def task_b(passport_list_with_empty_lines, codes):
     passport_list = remove_empty_lines_and_concat(passport_list_with_empty_lines)
-    passport_element_to_dict()
-    return
+    number_valid_passports = get_number_of_valid_passports(passport_list, codes)
+    return number_valid_passports
 
-#print("The number of valid passports in task a is:", task_a(passport_list_with_empty_lines, codes) )
-task_b(passport_list_with_empty_lines, codes)
+print("The number of valid passports in task a is:", task_a(passport_list_with_empty_lines, codes))
+print("The number of valid passports in task b is:", task_b(passport_list_with_empty_lines, codes))
