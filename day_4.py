@@ -1,5 +1,5 @@
 import re
-from utils import inputfile_to_array
+from utils import inputfile_to_array, remove_empty_lines_and_concat
 
 passport_list_with_empty_lines = inputfile_to_array("inputs/input_day_4.txt")
 
@@ -13,27 +13,6 @@ codes = [
     'pid',
     'cid'
 ]
-
-def remove_empty_lines_and_concat(passport_list_with_empty_lines):
-    '''
-    Takes in the list as read from the file, puts the lines that belong together in
-    same list element. The codes within the elements are space separated
-    '''
-
-    element = ''
-    passport_list = []
-    for i, item in enumerate(passport_list_with_empty_lines):
-        if item == "":
-            passport_list.append(element)
-            element = ''
-        else:
-            if element == '':
-                element = element + item
-            else:
-                element = element + ' ' + item
-            if i == len(passport_list_with_empty_lines)-1:
-                passport_list.append(element)
-    return passport_list
 
 def passport_element_to_dict(passport_string):
     '''
