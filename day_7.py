@@ -22,6 +22,9 @@ def bags_that_can_contain_directly(luggage_rules, bags_to_search_for):
     return (bags_that_can_contain_bag_to_search_for)
 
 def get_value_of_bag(luggage_rules, input_bag):
+    '''
+    Value is meant as how many bags it must contain (plus itself). Each individual bag adds 1 in value
+    '''
     content_of_bag = get_content_of_bag(luggage_rules, input_bag)
     if content_of_bag:
         value = 1
