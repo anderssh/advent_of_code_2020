@@ -81,22 +81,13 @@ def all_fields_valid(passport_dict, codes):
     return True
 
 def validate_birth_year(birth_year):
-
-    if (1920 <= int(birth_year) <= 2002) and (len(str(birth_year)) == 4):
-        return True 
-    return False
+    return (1920 <= int(birth_year) <= 2002) and (len(str(birth_year)) == 4)
 
 def validate_issue_year(issue_year):
-
-    if (2010 <= int(issue_year) <= 2020) and (len(str(issue_year)) == 4):
-        return True 
-    return False
+    return (2010 <= int(issue_year) <= 2020) and (len(str(issue_year)) == 4)
 
 def validate_expiration_year(expiration_year):
-
-    if (2020 <= int(expiration_year) <= 2030) and (len(str(expiration_year)) == 4):
-        return True 
-    return False
+    return (2020 <= int(expiration_year) <= 2030) and (len(str(expiration_year)) == 4)
 
 def validate_height(height):
 
@@ -123,9 +114,7 @@ def validate_eye_color(eye_color):
     "hzl",
     "oth",
     ]
-    if eye_color in valid_colors:
-        return True
-    return False
+    return eye_color in valid_colors
 
 def validate_hair_color(hair_color):
     if len(hair_color) == 7 and hair_color[0] == "#":
@@ -138,9 +127,7 @@ def validate_hair_color(hair_color):
     return False
 
 def validate_passport_id(passport_id):
-    if len(passport_id) == 9 and passport_id.isdigit():
-        return True
-    return False
+    return len(passport_id) == 9 and passport_id.isdigit()
 
 
 def task_a(passport_list_with_empty_lines, codes):
