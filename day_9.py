@@ -6,8 +6,8 @@ preamble_length = 25
 number_list = [int(item) for item in inputfile_to_array("inputs/input_day_9.txt")]
 
 def check_if_sum_exists_in_number_list(number_list, number):
-    for i, val in enumerate(number_list):
-        for k, inner_val in enumerate(number_list):
+    for val in number_list:
+        for inner_val in number_list:
             if val + inner_val == number:
                 return True
     return False
