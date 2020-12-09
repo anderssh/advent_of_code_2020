@@ -38,5 +38,6 @@ def task_1(number_list, preamble_length):
 def task_2(number_list, preamble_length):
     invalid_number = get_invalid_number(number_list, preamble_length)
     return find_contiguous_numbers(number_list,invalid_number)
+    
 print(task_1(number_list, preamble_length))
 print(task_2(number_list, preamble_length))
