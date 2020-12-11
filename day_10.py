@@ -3,7 +3,7 @@ import functools
 
 joltage_list = sorted([int(item) for item in inputfile_to_array("inputs/input_day_10.txt")])
 
-memo_list = [None]*(max(joltage_list)+3)
+memo_dict = {}
 def get_permutations(joltage_list, the_element_before):
     worklist = joltage_list[:]
     if worklist:
@@ -11,12 +11,12 @@ def get_permutations(joltage_list, the_element_before):
         permutations = 0
         for adapter in usable_adapters_this_round:
             list_to_pass_to_function = worklist[:]
-            if memo_list[adapter]:
-                permutations += memo_list[adapter]
+            if adapter in memo_dict:
+                permutations += memo_dict[adapter]
             else:
                 list_to_pass_to_function = [x for x in worklist if x > adapter]
                 permutations_from_this_run = int(get_permutations(list_to_pass_to_function, adapter))
-                memo_list[adapter] = permutations_from_this_run
+                memo_dict[adapter] = permutations_from_this_run
                 permutations = permutations + permutations_from_this_run
         return permutations
     return 1
