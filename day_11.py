@@ -28,8 +28,13 @@ def num_ocupied_relevant_seats(seat_map, relevant_seats):
     occupied_counter = 0
     for seat in relevant_seats:
         seat_row,seat_column = seat
-        if seat_map[seat_row][seat_column] == "#":
-            occupied_counter += 1
+        try:
+            if seat_map[seat_row][seat_column] == "#":
+                occupied_counter += 1
+        except:
+            print("This position has an error!", seat_row, seat_column)
+            exit(0)
+
     return occupied_counter
 
 def get_adjacent_seats(seat_map, row_number, column_number):
@@ -51,7 +56,7 @@ def get_adjacent_seats(seat_map, row_number, column_number):
         positions.append((row_number+1,column_number))
         if column_number == (len(seat_map[0])-1):
             positions.append((row_number,column_number-1))
-            positions.append((row_number,column_number-1))
+            positions.append((row_number,column_number))
         elif column_number == 0:
             positions.append((row_number,column_number+1))
             positions.append((row_number+1,column_number+1))
@@ -64,21 +69,19 @@ def get_adjacent_seats(seat_map, row_number, column_number):
         positions.append((row_number+1,column_number))
         positions.append((row_number-1,column_number))
         if column_number == (len(seat_map[0])-1):
-            positions.append((row_number+1,column_number-1))
-            positions.append((row_number-1,column_number-1))
             positions.append((row_number,column_number-1))
+            positions.append((row_number-1,column_number-1))
+            positions.append((row_number+1,column_number-1))
         elif column_number == 0:
             positions.append((row_number,column_number+1))
-            positions.append((row_number-1,column_number-1))
-            positions.append((row_number+1,column_number-1))
+            positions.append((row_number-1,column_number+1))
+            positions.append((row_number+1,column_number+1))
         else:
             positions.append((row_number,column_number-1))
             positions.append((row_number,column_number+1))
             positions.append((row_number+1,column_number-1))
-            positions.append((row_number+1,column_number))
             positions.append((row_number+1,column_number+1))
             positions.append((row_number-1,column_number-1))
-            positions.append((row_number-1,column_number))
             positions.append((row_number-1,column_number+1))
     return positions
 def get_last_seating(seat_map):
