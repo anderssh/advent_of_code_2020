@@ -8,7 +8,7 @@ def print_map(seat_map):
 
 def perform_seating(seat_map):
     out_map = seat_map[:]
-    print("Initial seatmap", seat_map)
+    print_map(out_map)
     for i in range(len(seat_map)):
         for j in range(len(seat_map[0])):
             adjacent_seats = get_adjacent_seats(seat_map,i,j)
@@ -16,17 +16,22 @@ def perform_seating(seat_map):
             if seat_map[i][j] == "L":
                 if num_ocupied_relevant_seats(seat_map, adjacent_seats) == 0:
                     out_map[i] = row_as_string[:j] + "#" + row_as_string[j + 1:]
+                    print(out_map[i])
             elif seat_map[i][j] == "#":
                 if num_ocupied_relevant_seats(seat_map, adjacent_seats) >= 4:
                     out_map[i] = row_as_string[:j] + "L" + row_as_string[j + 1:]
                 num_ocupied_relevant_seats(seat_map, adjacent_seats)
+    print("asdøflkajsdføalksjdfaølkdjfaølsdkfj")
+    print(out_map)
     return out_map
 
 def count_num_occupied_seats(seat_map):
-    counter = 0
-    counter = len(seat_map) * len(seat_map[0])
-
-    return counter
+    occupied_counter = 0
+    for i in range(len(seat_map)):
+        for j in range(len(seat_map[0])):
+            if seat_map[i][j] == "#":
+                occupied_counter +=  1
+    return occupied_counter
 
 def num_ocupied_relevant_seats(seat_map, relevant_seats):
     occupied_counter = 0
@@ -91,7 +96,7 @@ def get_last_seating(seat_map):
 
     while True:
         new_seating = perform_seating(seat_map)
-        print(count_num_occupied_seats(new_seating))
+        print("The number of taken seats are:", count_num_occupied_seats(new_seating))
         if new_seating == old_seat_map:
             return new_seating
         old_seat_map = new_seating
