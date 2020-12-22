@@ -9,13 +9,15 @@ def inputfile_to_array(input_file):
     lines_as_array = [(line) for line in lines]
     return lines_as_array
 
+
 def get_input_file(day):
 
+    cookie = {'session': '53616c7465645f5f34699b1a42077135613779bde9a5cef0f4fe370130cfb858f92e79d59582a9738b984ff6a1578819'}
     url = "https://adventofcode.com/2020/day/" + str(day) + "/input"
     filepath = 'inputs/input_day_' + str(day) + ".txt"
 
     if not os.path.isfile(filepath):
-        r = requests.get(url)
+        r = requests.get(url, cookies = cookie)
         open(filepath, 'wb').write(r.content)
 
 def remove_empty_lines_and_concat(list_with_empty_lines, space_separated = True):
