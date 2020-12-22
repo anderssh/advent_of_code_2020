@@ -1,2 +1,3 @@
 *.pyc
 *.vscode
+unit_tests.py
